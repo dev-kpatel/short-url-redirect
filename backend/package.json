@@ -1,0 +1,32 @@
+{
+  "name": "short-url-backend",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec \"tsx src/index.ts\"",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:setup": "psql \"$DATABASE_URL\" -f sql/schema.sql && psql \"$DATABASE_URL\" -f sql/seed.sql"
+  },
+  "keywords": [],
+  "author": "Krunal Patel",
+  "license": "ISC",
+  "description": "Short URL Redirect with React + Node.js + Express + PostgreSQL",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "@types/pg": "^8.15.5",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  }
+}

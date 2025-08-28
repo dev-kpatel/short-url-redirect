@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: shorturl-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shorturl
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: shorturl-backend
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgres://postgres:postgres@db:5432/shorturl
+      PUBLIC_RESOLVER_ORIGIN: http://localhost:4000
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shorturl-frontend
+    environment:
+      VITE_API_URL: http://localhost:4000/api
+      VITE_RESOLVER_ORIGIN: http://localhost:4000
+    depends_on:
+      - backend
+    # Vite preview uses 4173 by default
+    ports:
+      - "4173:4173"
+
+volumes:
+  db_data:
