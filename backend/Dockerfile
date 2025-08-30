@@ -6,13 +6,13 @@ WORKDIR /app
 # Copy package.json and lockfile
 COPY backend/package*.json ./
 
-# Install all deps (including dev for build)
+# Install ALL deps (including dev, e.g. typescript, tsc-alias)
 RUN npm install
 
-# Copy backend source
+# Copy backend source code
 COPY backend/ ./
 
-# Build TypeScript -> dist/
+# Build with tsc and resolve path aliases
 RUN npm run build
 
 
@@ -21,16 +21,16 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy only package files for prod install
+# Copy package.json & lockfile
 COPY backend/package*.json ./
 
-# Install prod deps only
+# Install ONLY production deps
 RUN npm install --omit=dev
 
-# Copy built app from builder stage
+# Copy built app from builder
 COPY --from=builder /app/dist ./dist
 
-# Copy anything else needed at runtime (e.g., config, sql)
+# Copy runtime extras (sql, configs, etc.)
 COPY backend/sql ./sql
 
 EXPOSE 4000
