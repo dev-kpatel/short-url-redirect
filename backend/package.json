@@ -6,7 +6,8 @@
     "dev": "nodemon --watch src --ext ts --exec \"tsx src/index.ts\"",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "start": "node dist/index.js",
-    "db:setup": "psql \"$DATABASE_URL\" -f sql/schema.sql && psql \"$DATABASE_URL\" -f sql/seed.sql"
+    "db:setup": "psql \"$DATABASE_URL\" -f sql/schema.sql && psql \"$DATABASE_URL\" -f sql/seed.sql",
+    "migrate": "psql \"$DATABASE_URL\" -f sql/schema.sql && psql \"$DATABASE_URL\" -f sql/seed.sql"
   },
   "engines": {
     "node": "20.x",
