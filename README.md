@@ -1,8 +1,40 @@
-<<<<<<< HEAD
 # short-url-redirect
 Short URL Redirect with React + Node.js + Express + PostgreSQL
 =======
-# Short URL Redirect (React + Node + Express + PostgreSQL)
+
+---
+
+## 🚀 Live Demo
+
+- **Frontend (Vercel)**: [https://short-url-redirect.vercel.app](https://short-url-redirect.vercel.app)
+- **Backend API (Railway)**: [https://short-url-redirect-production.up.railway.app/api](https://short-url-redirect-production.up.railway.app/api)
+
+Example endpoints:
+- Simple links: [GET /api/links/redirect](https://short-url-redirect-production.up.railway.app/api/links/redirect)
+- A/B test links: [GET /api/links/ab](https://short-url-redirect-production.up.railway.app/api/links/ab)
+- Calendar links: [GET /api/links/calendar](https://short-url-redirect-production.up.railway.app/api/links/calendar)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React (Vite, TailwindCSS, React Router)
+- **Backend:** Node.js, Express, TypeScript
+- **Database:** PostgreSQL (hosted on Railway)
+- **Deployment:**
+  - Backend → Railway
+  - Frontend → Vercel
+
+---
+
+## 📸 Features
+
+- 🔗 Create & manage short URLs
+- 🔀 A/B testing (split traffic between variants)
+- 📅 Calendar links with iCal/Google/Yahoo/Outlook export
+- 📊 Hit counter per link type
+
+---
 
 A portfolio-grade short link service with:
 - **Redirect links** (`/:slug`)
@@ -12,13 +44,6 @@ A portfolio-grade short link service with:
 - Single-hop backend redirects (always one 302 to the final URL)
 
 > Status: **V1 complete** (core create + list + redirect flows). See **ROADMAP.md** for V2+.
-
----
-
-## Stack
-- **Frontend:** React + TypeScript + Vite + Tailwind
-- **Backend:** Node.js + TypeScript + Express
-- **DB:** PostgreSQL
 
 ---
 
