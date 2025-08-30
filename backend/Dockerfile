@@ -1,22 +1,21 @@
-# Backend Dockerfile
-FROM node:20-alpine AS deps
+# Use Node.js 20 slim image
+FROM node:20-alpine
+
+# Set working directory
 WORKDIR /app
+
+# Install dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm install --production
 
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source code
 COPY . .
-# If your backend has a TypeScript build step, ensure `npm run build` outputs to dist/
-# Otherwise, replace with your production start command.
-RUN npm run build || echo "No build step, proceeding to runtime"
 
-FROM node:20-alpine AS runtime
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=build /app .
+# Build TypeScript -> dist/
+RUN npm run build
+
+# Expose app port
 EXPOSE 4000
-# If you don't build to dist, change this to your start script, e.g. `npm start`
-CMD ["node", "dist/index.js"]
+
+# Start the app
+CMD ["npm", "start"]
