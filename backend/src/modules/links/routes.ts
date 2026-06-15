@@ -4,7 +4,8 @@ import { createRedirect, createAb, createCalendar, getLinks, checkSlug} from './
 const router = Router();
 
 router.get("/slug/:slug/available", async (req: Request, res: Response) => {
-  const slug = String(req.params.slug.trim().toLowerCase());
+  const rawSlug = typeof req.params.slug === 'string' ? req.params.slug : '';
+  const slug = rawSlug.trim().toLowerCase();
   if (!slug) return res.status(400).json({ error: "missing slug" });
 
   try {
@@ -16,7 +17,7 @@ router.get("/slug/:slug/available", async (req: Request, res: Response) => {
 });
 
 router.get('/:type', async (req: Request, res: Response) => {
-  const type:string = req.params.type;
+  const type = typeof req.params.type === 'string' ? req.params.type : '';
   try {
     const out = await getLinks(type);
     res.json(out);

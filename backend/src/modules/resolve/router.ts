@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/ab/:slug', async (req: Request, res: Response) => {
   const ctx = {
-    slug: req.params.slug,
+    slug: typeof req.params.slug === 'string' ? req.params.slug : '',
     now: new Date(),
     ip: req.ip,
     ua: String(req.headers['user-agent'] || '')
@@ -29,9 +29,9 @@ router.get('/ab/:slug', async (req: Request, res: Response) => {
 router.get('/c/:t/:slug', async (req: Request, res: Response) => {
 
   const ctx = {
-    slug: req.params.slug,
+    slug: typeof req.params.slug === 'string' ? req.params.slug : '',
     now: new Date(),
-    target: req.params.t,
+    target: typeof req.params.t === 'string' ? req.params.t : '',
     ip: req.ip,
     ua: String(req.headers['user-agent'] || '')
   };
@@ -60,7 +60,7 @@ router.get('/c/:t/:slug', async (req: Request, res: Response) => {
 
 router.get('/:slug', async (req: Request, res: Response) => {
   const ctx = {
-    slug: req.params.slug,
+    slug: typeof req.params.slug === 'string' ? req.params.slug : '',
     now: new Date(),
     ip: req.ip,
     ua: String(req.headers['user-agent'] || '')
