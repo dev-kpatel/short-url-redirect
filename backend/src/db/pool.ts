@@ -1,9 +1,17 @@
 import pg from 'pg';
 import { env } from '../config/env.js';
 
+// Strip any sslmode or ssl query parameters from the connection string to prevent pg
+// from overwriting our explicit ssl configuration object.
+const sanitizedConnectionString = env.DATABASE_URL
+  .replace(/[?&]sslmode=[^&]+/g, '')
+  .replace(/[?&]ssl=[^&]+/g, '');
+
+const isLocal = sanitizedConnectionString.includes('localhost') || sanitizedConnectionString.includes('127.0.0.1');
+
 export const pool = new pg.Pool({
-  connectionString: env.DATABASE_URL,
-  ssl: env.DATABASE_URL.includes('localhost') || env.DATABASE_URL.includes('127.0.0.1')
+  connectionString: sanitizedConnectionString,
+  ssl: isLocal
     ? false
     : { rejectUnauthorized: false },
   max: process.env.VERCEL ? 2 : 10,
