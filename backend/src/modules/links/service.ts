@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { tx } from '@db/pool.js';
+import { tx } from '../../db/pool.js';
 import {
   insertLink, insertAbVariant, insertCalendarRule, findLinks, listAbVariants, isSlugTaken
 } from './repository.js';

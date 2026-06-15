@@ -1,5 +1,5 @@
 import { ResolverStrategy } from '../types.js';
-import { pool } from '@db/pool.js';
+import { pool } from '../../../db/pool.js';
 
 export const redirectStrategy: ResolverStrategy = {
   type: 'redirect',

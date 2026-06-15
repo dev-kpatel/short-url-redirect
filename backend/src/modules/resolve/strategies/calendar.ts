@@ -1,5 +1,5 @@
 import { ResolverStrategy, Target } from '../types.js';
-import { pool } from '@db/pool.js';
+import { pool } from '../../../db/pool.js';
 import { buildGoogleUrl, buildYahooUrl, buildOutlookUrl, buildIcs } from "./url-builders.js";
 
 

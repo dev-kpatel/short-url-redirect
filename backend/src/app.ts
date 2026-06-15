@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import linksRoutes from '@modules/links/routes.js';
-import resolveRouter from '@modules/resolve/router.js';
+import linksRoutes from './modules/links/routes.js';
+import resolveRouter from './modules/resolve/router.js';
 
 export function createApp() {
   const app = express();

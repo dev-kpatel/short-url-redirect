@@ -1,4 +1,4 @@
-import { Queryable } from '@db/pool.js';
+import { Queryable } from '../../db/pool.js';
 import { Link, LinkType, AbVariant, CalendarRule, AbVariantInput, CalendarEventInput } from './types.js';
 
 export async function isSlugTaken(db: Queryable, slug: string): Promise<number> {

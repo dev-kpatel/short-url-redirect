@@ -1,4 +1,4 @@
-import { pool } from '@db/pool.js';
+import { pool } from '../../db/pool.js';
 import { ResolveContext, ResolveResult, ResolverStrategy } from './types.js';
 import { redirectStrategy } from './strategies/redirect.js';
 import { abStrategy } from './strategies/ab.js';

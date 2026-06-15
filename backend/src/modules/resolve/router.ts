@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { resolveBySlug } from './resolver.js';
-import { pool } from '@db/pool.js';
+import { pool } from '../../db/pool.js';
 
 const router = Router();
 
