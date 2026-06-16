@@ -76,11 +76,16 @@ export const RedirectForm = ({ onCreated }: { onCreated: (code: string) => void 
           }
         />
         {success && (
-          <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
+          <p className="font-semibold text-lime-brand mb-5 flex items-center gap-1">
             Form has been submitted successfully
           </p>
         )}
-        <Button type="submit" onClick={onSubmit} className="w-auto">Create</Button>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-border mt-6">
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            ⚡ Demo Notice: Created links are automatically deleted after 24 hours.
+          </span>
+          <Button type="submit" onClick={onSubmit} className="w-auto">Create</Button>
+        </div>
       </form>
     </FormProvider>
   );

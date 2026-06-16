@@ -11,7 +11,10 @@ const registry: Record<string, ResolverStrategy> = {
 };
 
 export async function resolveBySlug(ctx: ResolveContext): Promise<ResolveResult> {
-  const { rows } = await pool.query('SELECT id, type, hits, redirect FROM links WHERE LOWER(slug)=LOWER($1) LIMIT 1', [ctx.slug]);
+  const { rows } = await pool.query(
+    "SELECT id, type, hits, redirect FROM links WHERE LOWER(slug)=LOWER($1) AND created >= NOW() - INTERVAL '24 hours' LIMIT 1",
+    [ctx.slug]
+  );
   const link = rows[0];
   if (!link) return { status: 404, reason: 'not_found' };
 

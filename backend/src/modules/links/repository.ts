@@ -2,13 +2,16 @@ import { Queryable } from '../../db/pool.js';
 import { Link, LinkType, AbVariant, CalendarRule, AbVariantInput, CalendarEventInput } from './types.js';
 
 export async function isSlugTaken(db: Queryable, slug: string): Promise<number> {
-  const { rows } = await db.query("SELECT 1 FROM links WHERE slug=$1 LIMIT 1", [slug]);
+  const { rows } = await db.query(
+    "SELECT 1 FROM links WHERE slug=$1 AND created >= NOW() - INTERVAL '24 hours' LIMIT 1",
+    [slug]
+  );
   return rows.length;
 }
 
 export async function findLinks(db: Queryable, type: string): Promise<Link[]> {
   const q = await db.query(
-    'SELECT id, type, slug, redirect, description, hits, created, updated FROM links WHERE type=$1',
+    "SELECT id, type, slug, redirect, description, hits, created, updated FROM links WHERE type=$1 AND created >= NOW() - INTERVAL '24 hours' ORDER BY created DESC",
     [type]
   );
   return q.rows || null;
@@ -16,13 +19,16 @@ export async function findLinks(db: Queryable, type: string): Promise<Link[]> {
 
 export async function findLinkBySlug(db: Queryable, slug: string): Promise<Link> {
   const q = await db.query(
-    'SELECT id, type, slug, redirect, description, hits, created, updated FROM links WHERE slug=$1 LIMIT 1',
+    "SELECT id, type, slug, redirect, description, hits, created, updated FROM links WHERE slug=$1 AND created >= NOW() - INTERVAL '24 hours' LIMIT 1",
     [slug]
   );
   return q.rows[0] || null;
 }
 
 export async function insertLink(db: Queryable, type: LinkType, slug: string, redirect:string, description?: string | null): Promise<Link> {
+  // Lazy clean up old links (older than 24 hours) on creation
+  await db.query("DELETE FROM links WHERE created < NOW() - INTERVAL '24 hours'");
+
   const q = await db.query(
     'INSERT INTO links (type, slug, redirect, description) VALUES ($1,$2,$3,$4) RETURNING id, type, slug, description, created, updated',
     [type, slug, redirect, description ?? null]

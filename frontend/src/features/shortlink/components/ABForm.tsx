@@ -130,7 +130,10 @@ export const AbForm = ({ onCreated }: { onCreated: (code: string) => void }) => 
           </p>
         )}
         {fields.length > 1 && (
-          <div className="flex justify-end pt-4 border-t border-border mt-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-border mt-6">
+            <span className="text-xs text-muted-foreground flex items-center gap-1">
+              ⚡ Demo Notice: Created links are automatically deleted after 24 hours.
+            </span>
             <Button type="submit" onClick={onSubmit} className="w-auto">
               Create Link
             </Button>
