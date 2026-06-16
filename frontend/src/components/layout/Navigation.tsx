@@ -47,7 +47,7 @@ export const Navigation = () => {
                   </svg>
                 </div>
                 <span className="font-display font-bold tracking-tight text-lg">
-                  Slug<span className="text-lime-brand">Split</span>
+                  Short<span className="text-lime-brand">Redirect</span>
                 </span>
               </Link>
 
