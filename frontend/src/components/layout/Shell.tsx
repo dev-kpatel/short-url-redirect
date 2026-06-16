@@ -2,17 +2,17 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Header, Navigation } from "./";
 
- const useRouteTitle = (pathname: string) => {
+const useRouteTitle = (pathname: string) => {
   const rules: Array<{ pattern: RegExp; title: string }> = [
-    { pattern: /^\/$/, title: "Dashboard" },
-    { pattern: /^\/app\/redirect$/, title: "Redirect" },
-    { pattern: /^\/app\/ab$/, title: "A/B Link" },
-    { pattern: /^\/app\/calendar$/, title: "Calendar Link" },
+    { pattern: /^\/$/, title: "Dashboard Analytics" },
+    { pattern: /^\/app\/redirect$/, title: "Redirect Management" },
+    { pattern: /^\/app\/ab$/, title: "A/B Experimentation" },
+    { pattern: /^\/app\/calendar$/, title: "Calendar Scheduling" },
 
     // dynamic public routes
     { pattern: /^\/ab\/[^/]+$/, title: "A/B Redirect" },
     { pattern: /^\/c\/[^/]+\/[^/]+$/, title: "Calendar Redirect" },
-    { pattern: /^\/[^/]+$/, title: "Redirect" }, // generic fallback for /:slug
+    { pattern: /^\/[^/]+$/, title: "Redirect" },
   ];
 
   const hit = rules.find(r => r.pattern.test(pathname));
@@ -25,11 +25,13 @@ export const Shell = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => { document.title = title; }, [title]);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Navigation />
       <Header title={title} />
-      <main className="mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        {children}
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="fade-in duration-300">
+          {children}
+        </div>
       </main>
     </div>
   );

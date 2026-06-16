@@ -14,14 +14,14 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   // Accessing name and id from the props object
   const { name, id } = props;
   const { formState: { errors } } = useFormContext();
-  const inputErrors:any = findInputError(errors, name) // Using the name prop here
+  const inputErrors = findInputError(errors, name); // Using the name prop here
   const isInvalid = !!inputErrors;
 
   return (
     <div className="block w-full">
       <div className="flex justify-between">
         {label && (
-          <label htmlFor={id} className="block text-md font-medium text-gray-700">
+          <label htmlFor={id} className="block text-sm font-semibold tracking-wide text-foreground">
             {label}
           </label>
         )}
@@ -39,9 +39,10 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
         ref={ref}
         id={id} // Setting the id on the input for accessibility
         className={cn(
-          "w-full rounded-md border border-gray-300 px-3 py-3 text-sm shadow-sm mt-2",
-          "focus:border-indigo-500 focus:ring-indigo-500",
-          isInvalid ? "border-red-500" : "border-gray-300",
+          "w-full rounded-xl border px-3.5 py-2 text-sm shadow-sm mt-1.5 transition-all duration-200 outline-none h-11",
+          "bg-card text-foreground border-border",
+          "focus:border-lime-brand focus:ring-1 focus:ring-lime-brand/20",
+          isInvalid ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : "",
           className
         )}
         {...props}

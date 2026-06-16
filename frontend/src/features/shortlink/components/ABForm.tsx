@@ -45,7 +45,7 @@ export const AbForm = ({ onCreated }: { onCreated: (code: string) => void }) => 
         onSubmit={e => e.preventDefault()}
         noValidate
         autoComplete="off"
-        className="space-y-3 rounded border border-gray-300 bg-white p-4 shadow-lg"
+        className="space-y-4 p-6 bg-card text-foreground"
       >
         <Input
           id="redirectslug"
@@ -75,18 +75,17 @@ export const AbForm = ({ onCreated }: { onCreated: (code: string) => void }) => 
           label="Description"
           {...methods.register('description')}
         />
-        <Button type="button" onClick={handleAddClick} className="btn-sm"><Plus className="h-4"/> Add Variation</Button>
-        {fields.length > 0 && <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mt-3">
+        {fields.length > 0 && <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 text-xs font-semibold tracking-wider uppercase text-muted-foreground mt-4 px-2">
               <div className="sm:col-span-2">Variation Name</div>
               <div className="sm:col-span-3">Variation URL</div>
         </div> }
         {fields.map((field, i) => (
           <div key={field.id}>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 gap-6 mt-4 p-4 border border-dashed border-gray-300 rounded-md bg-gray-50" key={field.id}>
+            <div className="grid grid-cols-1 sm:grid-cols-6 gap-4 items-end mt-2 p-4 border border-dashed border-border rounded-2xl bg-muted/20" key={field.id}>
               <div className="sm:col-span-2">
                   <Input
                     id={`vname${i}`}
-                    placeholder="E.g V1 or Variation 1 or Campaign Name"
+                    placeholder="E.g. V1"
                     required
                     {...methods.register(`variations.${i}.name`, {
                       required: 'Variation name is required'
@@ -97,7 +96,7 @@ export const AbForm = ({ onCreated }: { onCreated: (code: string) => void }) => 
                   <Input
                     type="url"
                     id={`vurl${i}`}
-                    placeholder="E.g https://example.com/2025/xxxx"
+                    placeholder="E.g. https://example.com/v1"
                     required
                     {...methods.register(`variations.${i}.redirect`,
                       {
@@ -111,18 +110,32 @@ export const AbForm = ({ onCreated }: { onCreated: (code: string) => void }) => 
                   />
               </div>
               <div className="sm:col-span-1">
-              <Button type="button" variant="ghost" className="border border-dashed border-gray-300 text-indigo rounded mt-3 py-3"
-                onClick={() => handleRemoveClick(i)}><Minus className="h-4"/></Button>
+              <Button type="button" variant="ghost" className="w-full border border-dashed border-border text-red-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl py-2.5"
+                onClick={() => handleRemoveClick(i)}><Minus className="h-4 w-4"/></Button>
             </div>
             </div>
           </div>
         ))}
+        <Button 
+          type="button" 
+          variant="ghost" 
+          onClick={handleAddClick} 
+          className="w-full border border-dashed border-border hover:border-lime-brand/50 hover:bg-muted/30 text-muted-foreground hover:text-foreground mt-3 py-3 flex items-center justify-center gap-1.5"
+        >
+          <Plus className="h-4 w-4" /> Add Variant
+        </Button>
         {success && (
-          <p className="font-semibold text-green-500 mb-5 flex items-center gap-1">
+          <p className="font-semibold text-lime-brand mt-4 flex items-center gap-1">
             Form has been submitted successfully
           </p>
         )}
-        { fields.length > 1 && <Button type="submit" onClick={onSubmit} className="w-auto">Create</Button> }
+        {fields.length > 1 && (
+          <div className="flex justify-end pt-4 border-t border-border mt-6">
+            <Button type="submit" onClick={onSubmit} className="w-auto">
+              Create Link
+            </Button>
+          </div>
+        )}
       </form>
     </FormProvider>
   );

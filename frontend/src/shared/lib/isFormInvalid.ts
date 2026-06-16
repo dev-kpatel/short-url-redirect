@@ -1,5 +1,5 @@
+import { FieldErrors } from "react-hook-form";
 
-export const isFormInvalid = (err:any) => {
-  if (Object.keys(err).length > 0) return true
-  return false
-}
+export const isFormInvalid = (errors: FieldErrors): boolean => {
+  return Object.keys(errors).length > 0;
+};

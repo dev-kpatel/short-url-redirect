@@ -32,12 +32,14 @@ export function Modal({ open, onClose, titleId, children }: ModalProps) {
   if (!open) return null;
 
   const content =
-    typeof children === "function" ? (children as any)({ close: onClose }) : children;
+    typeof children === "function"
+      ? (children as (api: { close: () => void }) => React.ReactNode)({ close: onClose })
+      : children;
 
   return createPortal(
     <div className="fixed inset-0 z-50">
       <div
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-all duration-300"
         onClick={onClose}
         aria-hidden
       />
@@ -46,7 +48,7 @@ export function Modal({ open, onClose, titleId, children }: ModalProps) {
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
-          className="w-full max-w-3xl rounded-xl bg-white shadow-lg outline-none"
+          className="w-full max-w-lg rounded-2xl bg-card border border-border text-foreground shadow-2xl outline-none overflow-visible transform transition-all"
           tabIndex={-1}
           ref={firstFocusRef}
         >

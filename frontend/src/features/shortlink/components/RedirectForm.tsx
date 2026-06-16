@@ -28,7 +28,7 @@ export const RedirectForm = ({ onCreated }: { onCreated: (code: string) => void 
         onSubmit={e => e.preventDefault()}
         noValidate
         autoComplete="off"
-        className="space-y-3 rounded border border-gray-300 bg-white p-4 shadow-lg"
+        className="space-y-4 p-6 bg-card text-foreground"
       >
         <Input
           id="redirectslug"
